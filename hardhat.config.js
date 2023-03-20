@@ -35,5 +35,65 @@ module.exports = {
     hardhat: {
       chainId: 1337
     },
+    polygonMain: {
+      url: process.env.POLYGONMATIC,
+      accounts
+    },
+    fantomTest: {
+      url: 'https://rpc.ankr.com/fantom_testnet',
+      accounts
+    },
+    fantomMain: {
+      url: 'https://endpoints.omniatech.io/v1/fantom/mainnet/public',
+      accounts
+    },
+    polygon: {
+      url: process.env.MATIC_LINK,
+      accounts
+    },
+    scrollTest: {
+      url: 'https://alpha-rpc.scroll.io/l2',
+      accounts
+    },
+    filwallaby: {
+      url: "https://wallaby.node.glif.io/rpc/v0",
+      accounts
+    },
+    taiko: {
+      url: "https://l2rpc.hackathon.taiko.xyz",
+      accounts
+    },
+    zkpolygon: {
+      url: "https://rpc.public.zkevm-test.net",
+      accounts
+    },
+    gnosis_chain: {
+      url: 'https://rpc.gnosischain.com',
+      accounts
+    },
+    // rinkeby: {
+    //     url: process.env.RINK_LINK,
+    //     accounts: [process.env.RINKEBY_KEY]
+    // },
+    optimism_test: {
+      url: "https://goerli.optimism.io",
+      accounts
+    },
+    optimism_main: {
+      url: process.env.OPTIMISM_MAINNET || "https://mainnet.optimism.io",
+      accounts
+    },
+    cronos_test: {
+      url: "https://evm-t3.cronos.org",
+      accounts
+    },
+    aurora_test: {
+      url: 'https://testnet.aurora.dev',
+      accounts
+    },
+    oasis_test: {
+      url: "https://testnet.emerald.oasis.dev",
+      accounts
+    }
   }
 };
