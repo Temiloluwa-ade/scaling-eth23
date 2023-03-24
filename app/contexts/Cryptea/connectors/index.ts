@@ -6,7 +6,6 @@ import UAuth from "@uauth/js";
 import { Connector, Chain, UserRejectedRequestError, ProviderRpcError } from "wagmi";
 import * as ethers from "ethers";
 import Router from 'next/router';
-import analytics from "../../../../analytics";
 import { AuthAddress, message } from "../Auth";
 
 
@@ -78,7 +77,6 @@ export class UDConnector extends Connector<any, any, any> {
 
         if (Boolean(main)) {
 
-          analytics.track("UD Auth");
 
             const email = await "user".get("email");
 
