@@ -47,7 +47,6 @@ import {
 
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { InjectedConnector } from "wagmi/connectors/injected";
-import { PhantomWallet } from "./connectors/solana";
 
 let user: userData | undefined;
 
@@ -258,13 +257,11 @@ export const CrypteaProvider = ({ children }: { children: JSX.Element }) => {
 
               coinbaseWallet({ chains, appName: "Cryptea" }),
 
-              PhantomWallet({ chains }),
             ]
           : [
               metaMaskWallet({ chains }),
               mail({ chains }),
               walletConnectWallet({ chains }),
-              PhantomWallet({ chains }),
               UD({ chains }),
               coinbaseWallet({ chains, appName: "Cryptea" }),
             ],
@@ -289,46 +286,6 @@ export const CrypteaProvider = ({ children }: { children: JSX.Element }) => {
 
   const length = 7;
 
-  const solana =  () => {
-
-        const supported = ["phantom"];
-
-        const store: any[] = [];
-
-        for (let i = 0; i < length; i++) {
-          const conn = client.connectors.pop();
-
-          if (conn !== undefined) {
-            if (supported.indexOf(conn.id) !== -1) {
-              store.push(conn);
-            }
-          }
-        }
-
-        store.forEach((v) => {
-          client.connectors.push(v);
-        });
-    };
-
-    const evm = () => {
-      const unsupported = ["phantom"];
-
-      const store: any[] = [];
-
-      for (let i = 0; i < length; i++) {
-        const conn = client.connectors.pop();
-
-        if (conn !== undefined) {
-          if (unsupported.indexOf(conn.id) === -1) {
-            store.push(conn);
-          }
-        }
-      }
-
-      store.forEach((v) => {
-        client.connectors.push(v);
-      });
-    };
 
 
     
@@ -346,8 +303,6 @@ export const CrypteaProvider = ({ children }: { children: JSX.Element }) => {
             mobile,
             user: context,
             isAuthenticated,
-            solana,
-            evm,
             update: (e: userData | undefined) => setContext(e),
           }}
         >

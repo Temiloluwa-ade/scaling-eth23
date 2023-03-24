@@ -2,6 +2,7 @@ import {
   configureChains,
   Chain,
 } from "wagmi";
+
 import {
   avalanche,
   polygonMumbai,
