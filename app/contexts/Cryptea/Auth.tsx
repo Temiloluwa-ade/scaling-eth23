@@ -260,9 +260,7 @@ export const CrypteaProvider = ({ children }: { children: JSX.Element }) => {
             ]
           : [
               metaMaskWallet({ chains }),
-              mail({ chains }),
               walletConnectWallet({ chains }),
-              UD({ chains }),
               coinbaseWallet({ chains, appName: "Cryptea" }),
             ],
     },
