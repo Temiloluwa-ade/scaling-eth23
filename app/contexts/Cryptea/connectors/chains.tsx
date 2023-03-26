@@ -1,8 +1,4 @@
-import {
-  configureChains,
-  Chain,
-} from "wagmi";
-
+import { configureChains, Chain } from "wagmi";
 import {
   avalanche,
   polygonMumbai,
@@ -25,7 +21,7 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import CustomImg from "../../../components/elements/customImg";
 import { BiEnvelope, BiPhoneCall, BiUserCircle } from "react-icons/bi";
 import { explorer, token } from "../types";
-
+import { SolanaCryptoList, solanatokenTrackers } from "./solana";
 
 export const OasisEmerald: Chain = {
   id: 42262,
@@ -75,7 +71,6 @@ export const OasisEmeraldTestnet: Chain = {
   },
   testnet: true,
 };
-
 
 export const Cronos: Chain = {
   id: 25,
@@ -180,9 +175,7 @@ export const CronosTest: Chain = {
   testnet: true,
 };
 
-
-
-export const { chains , provider, webSocketProvider } = configureChains(
+export const { chains, provider, webSocketProvider } = configureChains(
   [
     polygon,
     polygonZkEvmTestnet,
@@ -216,7 +209,6 @@ export const { chains , provider, webSocketProvider } = configureChains(
   ]
 );
 
-
 export const tokenTrackers: explorer = {
   137: {
     name: "polygonscan",
@@ -233,6 +225,10 @@ export const tokenTrackers: explorer = {
   1313161555: {
     name: "Aurora Explorer",
     link: (hash: string) => "https://explorer.testnet.aurora.dev/tx/" + hash,
+  },
+  10: {
+    name: "Optimism Explorer",
+    link: (hash: string) => "https://optimistic.etherscan.io/tx/" + hash,
   },
   420: {
     name: "Optimism Explorer",
@@ -266,12 +262,13 @@ export const tokenTrackers: explorer = {
   },
   167002: {
     name: "Taiko L2 Explorer",
-    link: (hash: string) => "https://l2explorer.hackathon.taiko.xyz/" + hash,
+    link: (hash: string) => "https://l2explorer.hackathon.taiko.xyz/tx/" + hash,
   },
   4002: {
     name: "Fantom Explorer",
     link: (hash: string) => "https://testnet.fantom.com/tx/" + hash,
   },
+  ...solanatokenTrackers,
 };
 
 export const inputsList = [
@@ -636,6 +633,7 @@ export const CryptoList: token[] = [
       auto: true,
     },
   },
+  ...SolanaCryptoList,
   {
     value: 1313161555,
     type: "native",
@@ -666,6 +664,37 @@ export const CryptoList: token[] = [
     },
     rpc: auroraTestnet.rpcUrls.default.http[0],
   },
+  {
+    value: 10,
+    contractAddr: "0xfABBC18bDA50D1CA3fC1c3343A0EF26C453eAf32",
+    testnet: false,
+    blocktype: "evm",
+    type: "native",
+    label: (
+      <div className="items-center flex">
+        <div className="h-[20px] mr-2 relative w-[20px]">
+          <CustomImg
+            symbol="op"
+            name="optimism"
+            key={15}
+            size={20}
+            alt={"Optimism"}
+          />
+        </div>
+        <span className="text-[#121212]">Optimism</span>
+      </div>
+    ),
+    name: "Optimism",
+    symbol: "op",
+    network: optimism.network as string,
+    tokenAddr: "",
+    payment: {
+      manual: true,
+      auto: true,
+    },
+    rpc: optimism.rpcUrls.default.http[0],
+  },
+
   {
     value: 420,
     contractAddr: "0xfABBC18bDA50D1CA3fC1c3343A0EF26C453eAf32",

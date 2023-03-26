@@ -8,6 +8,7 @@ import Link from "next/link";
 import { initD } from "../components/elements/dashboard/link/data";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useSwitchNetwork } from "wagmi";
+import analytics from "../../analytics";
 import mainIx from "../functions/interval"
 
 import {
@@ -290,6 +291,19 @@ export const PaymentProvider = ({
 
   };
 
+  const optimism = async (price: number) => {
+    const response = await getPriceReq({
+      ids: "optimism",
+      vs_currencies: "usd",
+    });
+
+    const e = response as { [index: string]: any };
+
+    const priceCurrency = Number(e["optimism"]["usd"]);
+
+    return price / priceCurrency;
+  };
+
   const getPrice = async (
     price: number,
     chain: string | number | undefined = 80001
@@ -373,18 +387,8 @@ export const PaymentProvider = ({
 
         return price / priceCurrency;
       },
-      "420": async () => {
-        const response = await getPriceReq({
-          ids: "optimism",
-          vs_currencies: "usd",
-        });
-
-        const e = response as { [index: string]: any };
-
-        const priceCurrency = Number(e["optimism"]["usd"]);
-
-        return price / priceCurrency;
-      },
+      "420": async () => optimism(price),
+      "10": async () => optimism(price)
     };
 
     final = await prices[chain]();
@@ -1147,8 +1151,10 @@ export const PaymentProvider = ({
 
       if (auto) {
         initMain(Number(amount), type);
+        analytics.track("Automatic Payments");
       } else {
         beginManual(Number(amount), type);
+        analytics.track("Manual Payments");
       }
     } else {
       setFailMessage("The amount set is invalid");
