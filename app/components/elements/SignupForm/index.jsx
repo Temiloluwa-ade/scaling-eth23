@@ -9,6 +9,7 @@ import {
   CircularProgress,
   IconButton,
 } from "@mui/material";
+import analytics from "../../../../analytics";
 import Router from "next/router";
 import { useCryptea } from "../../../contexts/Cryptea";
 import Loader from "../loader";
@@ -100,7 +101,10 @@ const SignupForm = () => {
       } else {
         
         // drop here - signup
-        
+        analytics.track("Signup", {
+          email: userEmail,
+          username: userInfo,
+        });
 
         try {
 

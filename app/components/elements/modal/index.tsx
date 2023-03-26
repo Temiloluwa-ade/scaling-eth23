@@ -11,6 +11,7 @@ import {
   uauth_connector,
 } from "../../../contexts/Cryptea/connectors";
 import { DashContext } from "../../../contexts/GenContext";
+import analytics from "../../../../analytics";
 import { useAccount } from "wagmi";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 
@@ -160,6 +161,7 @@ const AuthModal = ({
           if (isAuthing !== undefined) {
             if (userAuth) {
               // drop here - metamask
+              analytics.track("Auth");
 
               const email = await "user".get("email");
 
